@@ -11,6 +11,7 @@ import axios from 'axios'
 function Calculator() {
     const [calculate, setCalculate] = useState("")
     const [result, setResult] = useState("")
+    const [isShow, setIsShow] = useState(false)
 
     function handleClick(number) {
       setCalculate(calculate.concat(number))
@@ -22,40 +23,53 @@ function Calculator() {
 
     function handleClear() {
       setCalculate("")
+      setResult("")
     }
 
     function handleClickEqual() {   
-      setCalculate(eval(calculate).toString())   
+      setResult(eval(calculate).toString())   
     }
 
-    function handleSave() {
-      
+    const handleSave = async () => {
+      console.log(calculate)
+      const url = 'http://localhost/backend/apiSave.php';
+      try{
+        console.log('test')
+        const dataCalculate = await axios.post(url, {
+          calculate: calculate,
+          result: result
+        });
+        console.log(dataCalculate.data);
+      } catch (error) {
+        console.log('error');
+      }
     }
     return (
       <div>
-        <div>
+        <div className="title">
           <TheTitle value="Calculator 9000" />
         </div>
         <div className="container">
           <div>
-            <BeautifullScreen calculate={calculate} setCalculate={setCalculate}/>
-            <ItsOverNineThousand  calculate={calculate}/>
+            <BeautifullScreen calculate={ calculate } result={ result } />
+            <ItsOverNineThousand  calculate={ calculate }/>
           </div>
           
           <div className="keypad">
-            <SpecialButton name='Clear' handleClick={ handleClear } />
+            <div className="specialButton">
+              <SpecialButton  name='Clear' handleClick={ handleClear } />
+            </div>
             <SpecialButton name='<=' handleClick={ handleDeleteOne }  /> 
             <SpecialButton name='Save' handleClick={ handleSave } />
-            <AmazingNumberButton value={[7,8,9,4,5,6,1,2,3,0]} handleCalculator={handleClick} />
-            <GreatOperationButton value={["/", "*", "-", "+"]} handleOperator={handleClick} />
-            <MagnificientEqualButton name="="  handleEqual={handleClickEqual} />
-
+            <AmazingNumberButton value={["7","8","9","4","5","6","1","2","3"]} handleCalculator={ handleClick } />
+            <GreatOperationButton value={["/", "*", "-", "+"]} handleOperator={ handleClick } />
+            <div className="equal">
+              <MagnificientEqualButton name="="  handleEqual={handleClickEqual} />
+            </div>
           </div>
         </div>
       </div>
-    );  
-   
+    );   
   }
   
   export default Calculator;
-

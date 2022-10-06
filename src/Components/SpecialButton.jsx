@@ -7,7 +7,7 @@ function SpecialButton(props) {
     }
 
     return (
-        <div>
+        <div className='special'>
             <input type='submit' value={props.name} onClick={() => handleClick()} />
         </div>
     )

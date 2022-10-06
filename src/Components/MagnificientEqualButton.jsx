@@ -6,7 +6,9 @@ function MagnificientEqualButton(props) {
         props.handleEqual()
     }
     return (
-        <input type='button' value={props.name} onClick={() => { handleClick() }} />
+        <div className='special'>
+            <input type='button' value={props.name} onClick={() => { handleClick() }} />
+        </div>
     )
 }
 

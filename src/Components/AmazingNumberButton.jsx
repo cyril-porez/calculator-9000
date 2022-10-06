@@ -3,10 +3,13 @@ import React from 'react'
 
 function AmazingNumberButton(props) {  
     const numbs = props.value
+    console.log(numbs)
 
-    return Object.keys(numbs).map((item,index) => {
+    return numbs.map((item,index) => {
+        console.log(item[0])
         const handleClick = () => {
-            props.handleCalculator(item)                        
+            
+           props.handleCalculator(item)                        
         }
         return (
             <div key={index}>
