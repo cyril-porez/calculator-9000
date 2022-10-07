@@ -1,11 +1,11 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import TheTitle from './TheTitle'
 import AmazingNumberButton from "./AmazingNumberButton"
 import GreatOperationButton from './GreatOperationButton'
 import MagnificientEqualButton from './MagnificientEqualButton'
 import BeautifullScreen from "./BeautifullScreen"
 import SpecialButton from "./SpecialButton"
-import ItsOverNineThousand from "./ItsOverNineThousand";
+import ItsOverNineThousand from "./ItsOverNineThousand"
 import axios from 'axios'
 
 function Calculator() {
@@ -31,7 +31,6 @@ function Calculator() {
     }
 
     const handleSave = async () => {
-      console.log(calculate)
       const url = 'http://localhost/backend/apiSave.php';
       try{
         console.log('test')
@@ -39,7 +38,7 @@ function Calculator() {
           calculate: calculate,
           result: result
         });
-        console.log(dataCalculate.data);
+        console.log(dataCalculate.config.data);
       } catch (error) {
         console.log('error');
       }
@@ -61,12 +60,17 @@ function Calculator() {
             </div>
             <SpecialButton name='<=' handleClick={ handleDeleteOne }  /> 
             <SpecialButton name='Save' handleClick={ handleSave } />
+          </div>
+          <div className="numb">
             <AmazingNumberButton value={["7","8","9","4","5","6","1","2","3"]} handleCalculator={ handleClick } />
+          </div>
+          <div className="operator">
             <GreatOperationButton value={["/", "*", "-", "+"]} handleOperator={ handleClick } />
+
+          </div>
             <div className="equal">
               <MagnificientEqualButton name="="  handleEqual={handleClickEqual} />
             </div>
-          </div>
         </div>
       </div>
     );   
